@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xch.Core.Model
+namespace Xch.Model
 {
     /// <summary>
     /// Represents a 3 letter ISO 4217 currency code in a type-safe way.

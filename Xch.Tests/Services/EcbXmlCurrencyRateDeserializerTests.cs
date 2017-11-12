@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xch.Core.Model;
-using Xch.Core.Services;
-using Xch.Core.Services.Implementation;
+using Xch.Model;
+using Xch.Services;
+using Xch.Services.Implementation;
 using Xunit;
 
 namespace Xch.Tests.Services

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xch.Core.Model;
+using Xch.Model;
 
-namespace Xch.Core.Services.Implementation
+namespace Xch.Services.Implementation
 {
     public class BasicCurrencyRateProvider : ICurrencyRateProvider
     {

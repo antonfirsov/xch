@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Xch.Core.Model;
-using Xch.Core.Services;
-using Xch.Core.Services.Implementation;
+using Xch.Model;
+using Xch.Services;
+using Xch.Services.Implementation;
 using Xunit;
 
 namespace Xch.Tests.Services
@@ -65,6 +65,18 @@ namespace Xch.Tests.Services
 
             // Assert:
             Assert.NotSame(result0, result1);
+        }
+
+        [Fact]
+        public async Task AutoAddEur()
+        {
+            ICurrencyRateProvider wrappedProvider = _fixture.BasicProvider;
+
+            CachingCurrencyRateProvider provider = new CachingCurrencyRateProvider(wrappedProvider, TimeSpan.FromDays(1), true);
+
+            var snapshot = await provider.GetCurrentRatesAsync();
+
+            Assert.Equal(CurrencyRate.Eur, snapshot[CurrencyCode.Eur]);
         }
 
         public void Dispose()

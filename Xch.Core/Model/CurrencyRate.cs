@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xch.Core.Model
+namespace Xch.Model
 {
     /// <summary>
     /// Represents the rate of a given currency of <see cref="Code"/> compared to EUR.

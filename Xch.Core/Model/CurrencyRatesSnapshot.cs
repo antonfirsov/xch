@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Xch.Core.Model
+namespace Xch.Model
 {
     /// <summary>
     /// Represents a collection of <see cref="Count"/> number of <see cref="CurrencyRate"/>-s at a given time (<see cref="Date"/>).

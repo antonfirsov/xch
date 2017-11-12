@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Xch.Core.Services;
-using Xch.Core.Services.Implementation;
+using Xch.Services;
+using Xch.Services.Implementation;
 using Xunit;
 using Xunit.Abstractions;
 

@@ -1,5 +1,5 @@
 using System;
-using Xch.Core.Model;
+using Xch.Model;
 using Xunit;
 
 namespace Xch.Tests.Model

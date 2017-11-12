@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
-using Xch.Core.Services;
+using Xch.Services;
 using Xunit;
 
 namespace Xch.Tests.Services

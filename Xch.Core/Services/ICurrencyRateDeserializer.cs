@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Xch.Core.Model;
+using Xch.Model;
 
-namespace Xch.Core.Services
+namespace Xch.Services
 {
     public interface ICurrencyRateDeserializer
     {

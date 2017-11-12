@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Xch.Core.Services.Implementation
+namespace Xch.Services.Implementation
 {
     public class BasicHttpWebRequestExecutor : IBasicHttpWebRequestExecutor
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Xch.Core
+﻿namespace Xch
 {
     public interface IHelloService
     {

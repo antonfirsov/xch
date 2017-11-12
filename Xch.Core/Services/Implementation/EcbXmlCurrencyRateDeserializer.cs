@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Xch.Core.Model;
+using Xch.Model;
 
-namespace Xch.Core.Services.Implementation
+namespace Xch.Services.Implementation
 {
     public class EcbXmlCurrencyRateDeserializer : ICurrencyRateDeserializer
     {

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Xch.Core.Services
+namespace Xch.Services
 {
     public interface IBasicHttpWebRequestExecutor : IDisposable
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Moq;
-using Xch.Core.Model;
-using Xch.Core.Services;
-using Xch.Core.Services.Implementation;
+using Xch.Model;
+using Xch.Services;
+using Xch.Services.Implementation;
 
 namespace Xch.Tests.Services
 {
