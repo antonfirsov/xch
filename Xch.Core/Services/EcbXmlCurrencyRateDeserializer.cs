@@ -12,6 +12,11 @@ namespace Xch.Core.Services
 {
     public class EcbXmlCurrencyRateDeserializer : ICurrencyRateDeserializer
     {
+        private static readonly XNamespace CubeNamespace =
+            XNamespace.Get("http://www.ecb.int/vocabulary/2002-08-01/eurofxref");
+
+        private static readonly XName CubeName = XName.Get("Cube", CubeNamespace.NamespaceName);
+
         private static CurrencyRate ConvertRate(XElement element)
         {
             string code = (string) element.Attribute("currency");
@@ -19,11 +24,11 @@ namespace Xch.Core.Services
             return new CurrencyRate(code, rate);
         }
 
-        private static CurrencyRatesSnapshot ConvertSnapshot(XElement element, XName cubeName)
+        private static CurrencyRatesSnapshot ConvertSnapshot(XElement element)
         {
             string dateStr = (string) element.Attribute("time");
             var date = DateTime.ParseExact(dateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            var rates = element.Elements(cubeName).Select(ConvertRate);
+            var rates = element.Elements(CubeName).Select(ConvertRate);
             return new CurrencyRatesSnapshot(date, rates);
         }
 
@@ -39,14 +44,10 @@ namespace Xch.Core.Services
             {
                 throw new Exception("EcbXmlCurrencyRateDeserializer: invalid xml!");
             }
-
-            var ns = doc.Root.GetDefaultNamespace();
             
-            XName cubeName = XName.Get("Cube", ns.NamespaceName);
-            
-            var snapshotElements = doc.Root.Elements(cubeName).Single().Elements(cubeName);
+            var snapshotElements = doc.Root.Elements(CubeName).Single().Elements(CubeName);
 
-            return snapshotElements.Select(e => ConvertSnapshot(e, cubeName));
+            return snapshotElements.Select(ConvertSnapshot);
         }
     }
 }
