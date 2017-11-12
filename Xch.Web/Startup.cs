@@ -34,14 +34,8 @@ namespace Xch.Web
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(name: "default", template: "{controller=Main}/{action=Index}");
+                routes.MapRoute(name: "default", template: "{action}", defaults: new {controller = "Home", action="Index"});
             });
-
-            //app.Run(async (context) =>
-            //{
-            //    IHelloService svc = new HelloService();
-            //    await context.Response.WriteAsync(svc.SayHello());
-            //});
         }
     }
 }
