@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xch.Core.Model;
 
-namespace Xch.Core.Services
+namespace Xch.Core.Services.Implementation
 {
-    internal class EcbXmlWebServiceCurrencyRateProvider : ICurrencyRateProvider
+    public class CurrencyRateProvider : ICurrencyRateProvider
     {
-        public EcbXmlWebServiceCurrencyRateProvider(string url, IBasicHttpWebRequestExecutor httpWebRequestExecutor)
+        private IBasicHttpWebRequestExecutor _webRequestExecutor;
+        private ICurrencyRateDeserializer _deserializer;
+
+        public CurrencyRateProvider(IBasicHttpWebRequestExecutor webRequestExecutor, ICurrencyRateDeserializer deserializer)
         {
-            Url = url;
+            _webRequestExecutor = webRequestExecutor;
+            _deserializer = deserializer;
         }
 
-        public string Url { get; }
         public Task<CurrencyRatesSnapshot> GetCurrentRatesAsync()
         {
             throw new NotImplementedException();

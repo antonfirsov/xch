@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Xch.Core.Services
 {
-    internal interface IBasicHttpWebRequestExecutor
+    public interface IBasicHttpWebRequestExecutor : IDisposable
     {
-        Task<Stream> GetResponseStreamAsync(string url);
+        Task ExecuteAsync(string requestiUri);
+        Stream GetResponseStream();
     }
 }

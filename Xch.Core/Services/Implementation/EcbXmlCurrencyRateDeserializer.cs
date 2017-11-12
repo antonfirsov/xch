@@ -4,11 +4,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using Xch.Core.Model;
 
-namespace Xch.Core.Services
+namespace Xch.Core.Services.Implementation
 {
     public class EcbXmlCurrencyRateDeserializer : ICurrencyRateDeserializer
     {

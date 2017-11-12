@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xch.Core.Model;
 using Xch.Core.Services;
+using Xch.Core.Services.Implementation;
 using Xunit;
 
 namespace Xch.Tests.Services
