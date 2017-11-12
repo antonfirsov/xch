@@ -6,23 +6,24 @@ using Xch.Core.Model;
 
 namespace Xch.Core.Services.Implementation
 {
-    public class CurrencyRateProvider : ICurrencyRateProvider
+    public class BasicCurrencyRateProvider : ICurrencyRateProvider
     {
         public string Uri { get; }
-        private IBasicHttpWebRequestExecutor _webRequestExecutor;
-        private ICurrencyRateDeserializer _deserializer;
+        private readonly Func<IBasicHttpWebRequestExecutor> _webRequestExecutorFactory;
+        private readonly ICurrencyRateDeserializer _deserializer;
 
-        public CurrencyRateProvider(string uri, IBasicHttpWebRequestExecutor webRequestExecutor, ICurrencyRateDeserializer deserializer)
+        public BasicCurrencyRateProvider(string uri, Func<IBasicHttpWebRequestExecutor> webRequestExecutorFactory, ICurrencyRateDeserializer deserializer)
         {
             Uri = uri;
-            _webRequestExecutor = webRequestExecutor;
-            _deserializer = deserializer;
+            _webRequestExecutorFactory = webRequestExecutorFactory ?? throw new ArgumentNullException(nameof(webRequestExecutorFactory));
+            _deserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
         }
-
+        
         public async Task<CurrencyRatesSnapshot> GetCurrentRatesAsync()
         {
-            await _webRequestExecutor.ExecuteAsync(Uri);
-            var stream = _webRequestExecutor.GetResponseStream();
+            var executor = _webRequestExecutorFactory();
+            await executor.ExecuteAsync(Uri);
+            var stream = executor.GetResponseStream();
             var rates = await _deserializer.DeserializeCurrencyRatesAsync(stream);
             
             // TODO: I was not able to find a proper spec for the XML format. Do we expect an ordered input? Lets go for sure for now and sort it!
