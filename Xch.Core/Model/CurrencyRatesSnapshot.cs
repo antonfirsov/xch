@@ -6,7 +6,7 @@ using System.Linq;
 namespace Xch.Core.Model
 {
     /// <summary>
-    /// A collection of <see cref="Count"/> number of <see cref="CurrencyRate"/>-s at a given time (<see cref="Date"/>).
+    /// Represents a collection of <see cref="Count"/> number of <see cref="CurrencyRate"/>-s at a given time (<see cref="Date"/>).
     /// </summary>
     public class CurrencyRatesSnapshot : IReadOnlyCollection<CurrencyRate>
     {

@@ -19,8 +19,8 @@ namespace Xch.Tests
             string hello = svc.SayHello();
 
             // Assert:
-            Assert.NotNull(hello);
-            Assert.NotEmpty(hello);
+            Xunit.Assert.NotNull(hello);
+            Xunit.Assert.NotEmpty(hello);
         }
     }
 }

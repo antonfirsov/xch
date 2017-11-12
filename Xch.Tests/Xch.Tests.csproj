@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Xch.Core\Xch.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
