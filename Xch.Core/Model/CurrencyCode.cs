@@ -4,6 +4,7 @@ namespace Xch.Core.Model
 {
     /// <summary>
     /// Represents a 3 letter ISO 4217 currency code in a type-safe way.
+    /// This struct is immutable.
     /// </summary>
     public struct CurrencyCode : IEquatable<CurrencyCode>
     {
@@ -48,6 +49,8 @@ namespace Xch.Core.Model
         public static implicit operator CurrencyCode(string value) => new CurrencyCode(value);
 
         public override string ToString() => Value;
+
+        public static readonly CurrencyCode Eur = "EUR";
     }
 
 
