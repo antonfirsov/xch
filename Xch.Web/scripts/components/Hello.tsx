@@ -17,5 +17,4 @@ export class Hello extends React.Component<IHelloProps, {}> {
             document.getElementById(elementId)
         );
     }
-}
-
+};
