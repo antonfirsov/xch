@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xch.Core\Xch.Core.csproj" />
+    <ProjectReference Include="..\Xch.Web.Controllers\Xch.Web.Controllers.csproj" />
   </ItemGroup>
 
 </Project>

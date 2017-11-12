@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xch.Core", "Xch.Core\Xch.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xch.Web", "Xch.Web\Xch.Web.csproj", "{473B6D5B-E29F-4B3C-8586-B2E07037552D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xch.Tests", "Xch.Tests\Xch.Tests.csproj", "{F57D47A1-799D-43F4-9759-95765F5A076B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xch.Tests", "Xch.Tests\Xch.Tests.csproj", "{F57D47A1-799D-43F4-9759-95765F5A076B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xch.Web.Controllers", "Xch.Web.Controllers\Xch.Web.Controllers.csproj", "{0FF7C428-46D7-4D43-B893-1C26090F0FC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F57D47A1-799D-43F4-9759-95765F5A076B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F57D47A1-799D-43F4-9759-95765F5A076B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F57D47A1-799D-43F4-9759-95765F5A076B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF7C428-46D7-4D43-B893-1C26090F0FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF7C428-46D7-4D43-B893-1C26090F0FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF7C428-46D7-4D43-B893-1C26090F0FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF7C428-46D7-4D43-B893-1C26090F0FC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
