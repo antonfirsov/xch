@@ -12,6 +12,11 @@ namespace Xch.Model
 
         public CurrencyCode(string value)
         {
+            if (value == null)
+            {
+                throw new ArgumentException("Value for CurrencyCode can't be null!", nameof(value));
+            }
+
             if (value.Length != 3)
             {
                 throw new ArgumentException($"{value}: Invalid currency!", nameof(value));

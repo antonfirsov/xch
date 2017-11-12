@@ -37,6 +37,8 @@ namespace Xch.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "{action}", defaults: new {controller = "Home", action="Index"});
+
+                routes.MapRoute(name: "currency", template: "{controller}/{action}", defaults: new { controller = "Home" });
             });
         }
     }

@@ -12,7 +12,7 @@ namespace Xch.Tests.Controllers
         [Fact]
         public async void Test()
         {
-            HomeController controller = new HomeController(null);
+            HomeController controller = new HomeController();
 
             // Act:
             var result = await controller.Test();
