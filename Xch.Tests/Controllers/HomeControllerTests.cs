@@ -7,12 +7,12 @@ using Xunit;
 
 namespace Xch.Tests.Controllers
 {
-    public class MainControllerTests
+    public class HomeControllerTests
     {
         [Fact]
         public async void Test()
         {
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(null);
 
             // Act:
             var result = await controller.Test();

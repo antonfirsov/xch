@@ -6,6 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Xch.Core\Xch.Core.csproj" />
   </ItemGroup>
 
 </Project>

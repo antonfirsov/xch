@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xch;
+using Xch.Services;
 
 namespace Xch.Web
 {
@@ -18,6 +19,7 @@ namespace Xch.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddXch();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
