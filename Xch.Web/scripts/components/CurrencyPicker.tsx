@@ -1,6 +1,7 @@
 ﻿
 import * as React from "react";
-import { Ajax, IUriProps } from "../utils/Ajax";
+import { Ajax } from "../utils/Ajax";
+import { IUriProps } from "../utils/Data";
 
 interface ICurrencyCodes {
     codes : string[];

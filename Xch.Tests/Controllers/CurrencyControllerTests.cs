@@ -106,7 +106,7 @@ namespace Xch.Tests.Controllers
             foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(value.GetType()))
                 expando.Add(property.Name, property.GetValue(value));
 
-            return expando as ExpandoObject;
+            return (ExpandoObject) expando;
         }
     }
 }

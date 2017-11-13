@@ -1,5 +1,6 @@
 ﻿import * as React from "react";
-import { Ajax, IUriProps, ICurrencyConverterParameters} from "../utils/Ajax";
+import { Ajax } from "../utils/Ajax";
+import { IUriProps, ICurrencyConverterParameters } from "../utils/Data";
 import {CurrencyPicker} from "./CurrencyPicker";
 import { isUndefined } from "util";
 

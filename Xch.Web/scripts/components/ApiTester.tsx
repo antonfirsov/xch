@@ -1,5 +1,7 @@
 ﻿import * as React from "react";
-import { Ajax, IUriProps, ICurrencyConverterParameters } from "../utils/Ajax";
+import { Ajax, } from "../utils/Ajax";
+import { IUriProps, ICurrencyConverterParameters, ICurrencyHistory, flattenCurrencyHistoryData } from "../utils/Data";
+
 
 interface IApiTesterProps<T> {
     name:string;
@@ -67,6 +69,28 @@ export class CurrencyConverterApiTester extends React.Component<IUriProps, IApiT
         };
 
         var callFun = () => Ajax.get<string>(this.props.uri, parameters);
+
+        return (
+            <TheTester name="karesz" callApi={callFun}>
+            </TheTester>
+        );
+    }
+}
+
+export class CurrencyHistoryApiTester extends React.Component<IUriProps, IApiTesterState> {
+    constructor(props: IUriProps) {
+        super(props);
+    }
+
+    render(): React.ReactNode {
+
+        const TheTester = ApiTester as new () => ApiTester<number[][]>;
+
+        var callFun = () =>
+            Ajax.get<ICurrencyHistory>(this.props.uri)
+                .then(
+            history => flattenCurrencyHistoryData(history)
+        );
 
         return (
             <TheTester name="karesz" callApi={callFun}>

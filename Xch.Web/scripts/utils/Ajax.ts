@@ -33,12 +33,3 @@
     }
 }
 
-export interface IUriProps {
-    uri: string;
-}
-
-export interface ICurrencyConverterParameters {
-    sourceAmount: number;
-    sourceCurrencyCode: string;
-    destCurrencyCode: string;
-}
