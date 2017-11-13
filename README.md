@@ -10,6 +10,9 @@ Built with 5.5.1
 ## Local Setup
 #### From command line:
 ```
+cd Xch.Web
+npm install
+npm run build
 dotnet run
 ```
 #### From Visual Studio 2017
