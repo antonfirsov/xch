@@ -4,8 +4,8 @@ A minimal currency converter &amp; viewer written in ASP.NET Core &amp; React
 ## Prerequisites
 #### .NET Core SDK or Visual Studio 2017
 Built with v2.0.2, but v1.1.4 should be ok as well
-#### npm
-Built with 5.5.1
+#### node + npm
+Built with node v8.9.1 & npm v5.5.1
 
 ## Local Setup
 #### From command line:
