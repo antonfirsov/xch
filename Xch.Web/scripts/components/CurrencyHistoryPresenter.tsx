@@ -2,30 +2,43 @@
 import * as ReactDOM from "react-dom";
 import ReactHighstock = require('react-highcharts/ReactHighstock.src');
 
+import * as Bs from 'react-bootstrap';
+
 import { Ajax } from "../utils/Ajax";
 import { IUriProps, ICurrencyHistory, flattenCurrencyHistoryData, extractHighChartSeries } from "../utils/Data";
 
 interface ICurrencyHistoryPresenterState {
-    history? : ICurrencyHistory;
+    history?: ICurrencyHistory;
+    codesShown: string[];
 }
+
+//interface ICurrencyButtonProps {
+//    code: string;
+//}
+
+//interface ICurrencyButtonState {
+//    enabled: boolean;
+//}
+
+//class CurrencyButton extends React.Component<ICurrencyButtonProps, ICurrencyButtonState> {
+//    render(): React.ReactNode {
+//        return <Bs.ToggleButton>{this.props.code}</Bs.ToggleButton> ;
+//    }
+//}
 
 export class CurrencyHistoryPresenter extends React.Component<IUriProps, ICurrencyHistoryPresenterState> {
     render(): React.ReactNode {
         if (!this.state || !this.state.history) {
             return "";
         }
-
-        //var data = flattenCurrencyHistoryData(this.state.history, 2);
-        var filter = (s: string) => s === "PHP" || s === "CZK" || s === "RUB";
+        
+        var filter = (s: string) => this.state.codesShown.some(x => x === s);
 
         var series = extractHighChartSeries(this.state.history, filter);
 
         var config = {
             rangeSelector: {
                 selected: 1
-            },
-            title: {
-                text: 'Currency history'
             },
             series: series,
             chart: {
@@ -35,14 +48,32 @@ export class CurrencyHistoryPresenter extends React.Component<IUriProps, ICurren
 
         return (
             <div className="currency-history-presenter">
-                <ReactHighstock config={config} />
+                <Bs.ButtonToolbar>
+                    <Bs.ToggleButtonGroup type="checkbox" value={this.state.codesShown} onChange={this.handleCurrencyButtonsChanged.bind(this)}>
+                        {this.state.history.codes.map(c => this.getCurrencyButton(c))}
+                    </Bs.ToggleButtonGroup>
+                    <ReactHighstock config={config}/>
+                </Bs.ButtonToolbar>
             </div>
         );
     }
 
+    private getCurrencyButton(code: string): React.ReactNode {
+        return <Bs.ToggleButton value={code}>{code}</Bs.ToggleButton>;
+    }
+
+    private handleCurrencyButtonsChanged(values: string[]): void {
+        this.setState({ codesShown: values});
+    }
+
     componentDidMount(): void {
         Ajax.get<ICurrencyHistory>(this.props.uri).then(history => {
-            this.setState({history: history});
+            var defaultCodes: string[] = [];
+            if (history.codes.some(x => x === 'USD')) {
+                defaultCodes.push('USD');
+            }
+            
+            this.setState({ history: history, codesShown: defaultCodes});
         });
     }
 }

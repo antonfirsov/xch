@@ -13,8 +13,10 @@ import { CurrencyHistoryPresenter } from "./components/CurrencyHistoryPresenter"
 
 ReactDOM.render(
     <div>
+        <h2>Converter:</h2>
         <CurrencyConverter codesUri="/currency/codes" converterUri="/currency/exchange" />
 
+        <h2>History:</h2>
         <CurrencyHistoryPresenter uri="/currency/history" />
     </div>
     ,

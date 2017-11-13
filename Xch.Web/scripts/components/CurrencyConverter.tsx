@@ -48,9 +48,7 @@ export class CurrencyConverter extends React.Component<ICurrencyConverterProps, 
                    {this.renderResultLabel()}
         </div>;
     }
-
-    //<button type="submit" disabled={!this.conversionEnabled}>Convert</button> onSubmit={this.handleSubmit.bind(this)}
-
+    
     private get conversionEnabled(): boolean {
         return this.state.sourceAmount != null && !isUndefined(this.state.sourceAmount);
     }
@@ -67,12 +65,7 @@ export class CurrencyConverter extends React.Component<ICurrencyConverterProps, 
             this.setState({ codes: result, currentSource: first, currentDest: first });
         });
     }
-
-    private handleSubmit(e): void {
-        e.preventDefault();
-        this.trySendUpdateResultAmountRequest();
-    }
-
+    
     private trySendUpdateResultAmountRequest(): void {
         if (!this.state.currentSource || !this.state.currentDest || !this.conversionEnabled) return;
 

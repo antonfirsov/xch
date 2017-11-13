@@ -14,17 +14,17 @@ export interface ICurrencyHistory {
     data: number[][];
 }
 
+export interface IHighchartsSerie {
+    name: string;
+    data: number[][];
+    tooltip: any;
+}
+
 export function flattenCurrencyHistoryData(history: ICurrencyHistory, idx: number): number[][] {
     var keys = history.dates.map((d) => new Date(d).getTime());
     var vals = history.data[idx];
 
     return keys.map((e, i) => [e, vals[i]]);
-}
-
-export interface IHighchartsSerie {
-    name: string;
-    data: number[][];
-    tooltip: any;
 }
 
 export function extractHighChartSeries(history: ICurrencyHistory, f: (string) => boolean): IHighchartsSerie[] {
