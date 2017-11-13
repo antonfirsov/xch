@@ -30,19 +30,19 @@ export class CurrencyConverter extends React.Component<ICurrencyConverterProps, 
 
     render(): React.ReactNode {
         return <div >
-                   <label>From: &nbsp;</label>
+                   <label>&nbsp; From: &nbsp;</label>
 
                    <CurrencyPicker
                        codes={this.state.codes}
                        defaultSelected={this.state.currentSource} onChanged={this.handleSourceChanged.bind(this)} />
 
-                   <label>To: &nbsp;</label>
+                   <label>&nbsp; To: &nbsp;</label>
             
                    <CurrencyPicker
                        codes={this.state.codes}
                        defaultSelected={this.state.currentDest} onChanged={this.handleDestChanged.bind(this)} />
 
-                   <label>Amount: &nbsp;</label>
+                   <label>&nbsp; Amount: &nbsp;</label>
                    <input value={this.state.sourceAmountString} onChange={this.handleInputChanged.bind(this)} />
             
                    {this.renderResultLabel()}
