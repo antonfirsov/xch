@@ -47,8 +47,8 @@ namespace Xch.Web.Controllers
 
             var result = new
             {
-                codes = history.Codes,
-                dates = history.Dates,
+                codes = history.Codes.Select(c => c.Value).ToArray(),
+                dates = history.Dates.Select(d => d.ToString("yyyy-MM-dd")).ToArray(),
                 data = history.ToArray()
             };
 

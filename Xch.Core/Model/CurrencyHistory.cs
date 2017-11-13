@@ -20,12 +20,14 @@ namespace Xch.Model
         public int Count => _data.Count;
 
         private CurrencyHistory(Dictionary<CurrencyCode, CurrencyTimeSeries> data,
-            IReadOnlyList<CurrencyCode> codes,
-            IReadOnlyList<DateTime> dates)
+            IEnumerable<CurrencyCode> codes,
+            IEnumerable<DateTime> dates)
         {
             _data = data;
-            Codes = codes;
-            Dates = dates;
+            var cc = codes.ToArray();
+            Array.Sort(cc);
+            Codes = cc;
+            Dates = dates.ToArray();
         }
 
         public static CurrencyHistory CreateFromSnapshots(IEnumerable<CurrencyRatesSnapshot> snapshots)
@@ -47,12 +49,12 @@ namespace Xch.Model
                 }
             }
 
-            DateTime[] dates = snapshots.Select(s => s.Date).ToArray();
-            CurrencyCode[] codes =
-                snapshots.FirstOrDefault()?.Where(s => s.Code != CurrencyCode.Eur).Select(s => s.Code).ToArray() ??
-                new CurrencyCode[0];
+            var dates = snapshots.Select(s => s.Date);
+            var codes =
+                snapshots.FirstOrDefault()?.Where(s => s.Code != CurrencyCode.Eur).Select(s => s.Code) ??
+                Enumerable.Empty<CurrencyCode>();
 
-            if (data.Any(d => d.Value.Count != dates.Length))
+            if (data.Any(d => d.Value.Count != dates.Count()))
             {
                 throw new InvalidOperationException("CurrencyHistory.CreateFromSnapshots(): inconsistent input!");
             }
