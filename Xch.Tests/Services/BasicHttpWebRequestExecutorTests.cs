@@ -16,7 +16,7 @@ namespace Xch.Tests.Services
             _output = output;
         }
 
-        [Fact]
+        [Fact(Skip = "For local execution only.")]
         public async Task ExecuteAsync()
         {
             string uri = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
