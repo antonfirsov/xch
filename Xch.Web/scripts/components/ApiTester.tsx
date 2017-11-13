@@ -84,13 +84,13 @@ export class CurrencyHistoryApiTester extends React.Component<IUriProps, IApiTes
 
     render(): React.ReactNode {
 
-        const TheTester = ApiTester as new () => ApiTester<number[][]>;
+        const TheTester = ApiTester as new() => ApiTester<number[][]>;
 
         var callFun = () =>
             Ajax.get<ICurrencyHistory>(this.props.uri)
-                .then(
-            history => flattenCurrencyHistoryData(history)
-        );
+            .then(
+                history => flattenCurrencyHistoryData(history, 0)
+            );
 
         return (
             <TheTester name="karesz" callApi={callFun}>

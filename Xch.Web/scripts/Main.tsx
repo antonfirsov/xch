@@ -12,14 +12,16 @@ import { CurrencyHistoryPresenter } from "./components/CurrencyHistoryPresenter"
 ReactDOM.render(
     <div>
         <CurrencyConverter codesUri="/currency/codes" converterUri="/currency/exchange" />
-        
 
-        <CurrencyHistoryApiTester uri="/currency/history" />
+        
     </div>
     ,
     document.getElementById("root")
 );
 
+//<CurrencyHistoryPresenter uri="/currency/history" />
+
+//<CurrencyHistoryApiTester uri="/currency/history" />
 //<CurrencyHistoryPresenter uri="/currency/history" />
 //<Hello text="hello" />
 //<CurrencyPicker uri="/currency/codes" />

@@ -14,9 +14,26 @@ export interface ICurrencyHistory {
     data: number[][];
 }
 
-export function flattenCurrencyHistoryData(history: ICurrencyHistory): number[][] {
+export function flattenCurrencyHistoryData(history: ICurrencyHistory, idx: number): number[][] {
     var keys = history.dates.map((d) => new Date(d).getTime());
-    var vals = history.data[0];
+    var vals = history.data[idx];
 
     return keys.map((e, i) => [e, vals[i]]);
+}
+
+export interface IHighchartsSerie {
+    name: string;
+    data: number[][];
+    tooltip: any;
+}
+
+export function extractHighChartSeries(history: ICurrencyHistory, f: (string) => boolean): IHighchartsSerie[] {
+    return history.codes.map((e, i) => {
+        var s: IHighchartsSerie = {
+            name: e,
+            data: flattenCurrencyHistoryData(history, i),
+            tooltip : { valueDecimals: 2}
+        };
+        return s;
+    }).filter(s => f(s.name));
 }
