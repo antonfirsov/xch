@@ -36,3 +36,5 @@ dotnet run
 ## Tested with browsers
 - Google Chrome 62
 - IE11
+- Mircosoft Edge 40
+- Mozilla Firefox 56
