@@ -1,5 +1,5 @@
 ﻿export class Ajax {
-    public static async getRaw(url:string): Promise<string> {
+    public static async getRaw(uri:string): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             var xhr = new XMLHttpRequest();
 
@@ -11,14 +11,34 @@
                     reject(xhr.statusText);
                 }
             };
-            xhr.open('GET', url, true);
+            xhr.open('GET', uri, true);
             xhr.send();
         });
     }
 
-    public static async get<T>(url): Promise<T> {
-        var result = await Ajax.getRaw(url);
+    public static async get<T>(uri: string, parameters: any = null): Promise<T> {
+        if (parameters) {
+            var str = "";
+            for (var key in parameters) {
+                if (str != "") {
+                    str += "&";
+                }
+                str += key + "=" + encodeURIComponent(parameters[key]);
+            }
+            uri = uri + '?' + str;
+        }
+        var result = await Ajax.getRaw(uri);
         var wut = JSON.parse(result);
         return <T>wut;
     }
+}
+
+export interface IUriProps {
+    uri: string;
+}
+
+export interface ICurrencyConverterParameters {
+    sourceAmount: number;
+    sourceCurrencyCode: string;
+    destCurrencyCode: string;
 }

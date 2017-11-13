@@ -36,7 +36,7 @@ namespace Xch.Model
 
         public IEnumerator<CurrencyRate> GetEnumerator()
         {
-            return _data.Values.GetEnumerator();
+            return _data.Values.OrderBy(v => v.Code).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

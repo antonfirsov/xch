@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Xch.Model
 {
@@ -6,7 +7,7 @@ namespace Xch.Model
     /// Represents a 3 letter ISO 4217 currency code in a type-safe way.
     /// This struct is immutable.
     /// </summary>
-    public struct CurrencyCode : IEquatable<CurrencyCode>
+    public struct CurrencyCode : IEquatable<CurrencyCode>, IComparable<CurrencyCode>
     {
         public string Value { get; }
 
@@ -56,6 +57,20 @@ namespace Xch.Model
         public override string ToString() => Value;
 
         public static readonly CurrencyCode Eur = "EUR";
+        
+        public int CompareTo(CurrencyCode other)
+        {
+            if (Equals(Eur) && !other.Equals(Eur))
+            {
+                return -1;
+            }
+            else if (other.Equals(Eur) && !Equals(Eur))
+            {
+                return 1;
+            }
+
+            return string.Compare(Value, other.Value, StringComparison.Ordinal);
+        }
     }
 
 

@@ -1,7 +1,5 @@
 ﻿import * as React from "react";
-import * as ReactDOM from "react-dom";
-
-import { Ajax } from "../utils/Ajax";
+import { Ajax, IUriProps, ICurrencyConverterParameters } from "../utils/Ajax";
 
 interface IApiTesterProps<T> {
     name:string;
@@ -41,17 +39,34 @@ export class ApiTester<T> extends React.Component<IApiTesterProps<T>, IApiTester
     }
 }
 
-interface IRawApiTesterProps {
-    uri : string;
-}
 
-export class RawApiTester extends React.Component<IRawApiTesterProps, IApiTesterState> {
+export class RawApiTester extends React.Component<IUriProps, IApiTesterState> {
     
     render(): React.ReactNode {
 
         const TheTester = ApiTester as new () => ApiTester<string>;
 
         var callFun = () => Ajax.get<string>(this.props.uri);
+
+        return (
+            <TheTester name="karesz" callApi={callFun}>
+            </TheTester>
+        );
+    }
+}
+
+export class CurrencyConverterApiTester extends React.Component<IUriProps, IApiTesterState> {
+    render(): React.ReactNode {
+
+        const TheTester = ApiTester as new () => ApiTester<string>;
+
+        var parameters: ICurrencyConverterParameters = {
+            sourceAmount : 400,
+            sourceCurrencyCode : "HUF",
+            destCurrencyCode : "EUR"
+        };
+
+        var callFun = () => Ajax.get<string>(this.props.uri, parameters);
 
         return (
             <TheTester name="karesz" callApi={callFun}>
