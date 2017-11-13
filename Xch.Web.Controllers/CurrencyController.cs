@@ -49,7 +49,7 @@ namespace Xch.Web.Controllers
             {
                 codes = history.Codes.Select(c => c.Value).ToArray(),
                 dates = history.Dates.Select(d => d.ToString("yyyy-MM-dd")).ToArray(),
-                data = history.ToArray()
+                data = history.Select(s => s.ToArray()).ToArray()
             };
 
             return Json(result);

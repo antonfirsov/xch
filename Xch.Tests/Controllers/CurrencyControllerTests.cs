@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -80,11 +82,31 @@ namespace Xch.Tests.Controllers
             var result = await _controller.History();
 
             JsonResult jr = (JsonResult) result;
-            
-            dynamic history = ExtractJsonResult<dynamic>(result);
 
+            dynamic history = ToDynamic(ExtractJsonResult<object>(result));
+            
             string s = JsonConvert.SerializeObject(history);
             _output.WriteLine(s);
+
+            Assert.Equal(new[] {"BAZ", "HUF"}, history.codes);
+            Assert.Equal(new[] { "2017-01-01", "2017-01-02" }, history.dates);
+
+            double[][] expectedData = {
+                new []{201.0, 200.0},
+                new []{301.0, 300.0}
+            };
+
+            Assert.Equal(expectedData, history.data);
+        }
+
+        private static dynamic ToDynamic(object value)
+        {
+            IDictionary<string, object> expando = new ExpandoObject();
+
+            foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(value.GetType()))
+                expando.Add(property.Name, property.GetValue(value));
+
+            return expando as ExpandoObject;
         }
     }
 }
