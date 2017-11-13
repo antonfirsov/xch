@@ -3,9 +3,9 @@ import * as ReactDOM from "react-dom";
 
 import { Ajax } from "../utils/Ajax";
 
-interface IApiTesterProps {
-    uri: string;
-    callApi: () => string;
+interface IApiTesterProps<T> {
+    name:string;
+    callApi: () => Promise<T>;
 }
 
 interface IApiTesterState {
@@ -13,16 +13,19 @@ interface IApiTesterState {
 }
 
 // No idea how to make Jasmine work in Visual Studio with the current client stack :(
-export class ApiTester extends React.Component<IApiTesterProps, IApiTesterState> {
-    constructor(props: IApiTesterProps) {
+export class ApiTester<T> extends React.Component<IApiTesterProps<T>, IApiTesterState> {
+    constructor(props: IApiTesterProps<T>) {
+        if (!props.name) {
+            props.name = "API";
+        }
         super(props);
         this.state = { result: "SENDING.." };
     }
-    
+
     render(): React.ReactNode {
         return (
             <div>
-                <p>Calling <strong>{this.props.uri}</strong></p>
+                <p>Calling <strong>{this.props.name}</strong></p>
                 <p>Result:</p>
                 <p>{this.state.result}</p>
                 <hr/>
@@ -31,9 +34,28 @@ export class ApiTester extends React.Component<IApiTesterProps, IApiTesterState>
     }
 
     componentDidMount(): void {
-        Ajax.get(this.props.uri).then(result => {
-            this.setState({ result: result });
-            this.forceUpdate();
+        this.props.callApi().then(result => {
+            var str = JSON.stringify(result);
+            this.setState({result:str});
         });
+    }
+}
+
+interface IRawApiTesterProps {
+    uri : string;
+}
+
+export class RawApiTester extends React.Component<IRawApiTesterProps, IApiTesterState> {
+    
+    render(): React.ReactNode {
+
+        const TheTester = ApiTester as new () => ApiTester<string>;
+
+        var callFun = () => Ajax.get<string>(this.props.uri);
+
+        return (
+            <TheTester name="karesz" callApi={callFun}>
+            </TheTester>
+        );
     }
 }
