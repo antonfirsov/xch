@@ -44,7 +44,7 @@ export class CurrencyPicker extends React.Component<ICurrencyPickerProps, ICurre
     private changedHandler(e) {
         if (this.cProps.onChanged != null) {
             var target = e.target as HTMLSelectElement;
-            var value = target.selectedOptions.item(0).value;
+            var value = target.options[target.selectedIndex].value;
             this.cProps.onChanged(value);
         }
     }

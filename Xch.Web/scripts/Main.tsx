@@ -1,4 +1,6 @@
-﻿import * as React from "react";
+﻿global.Promise = require('es6-promise').Promise;
+
+import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import { Ajax } from "./utils/Ajax";
@@ -13,13 +15,13 @@ ReactDOM.render(
     <div>
         <CurrencyConverter codesUri="/currency/codes" converterUri="/currency/exchange" />
 
-        
+        <CurrencyHistoryPresenter uri="/currency/history" />
     </div>
     ,
     document.getElementById("root")
 );
 
-//<CurrencyHistoryPresenter uri="/currency/history" />
+//
 
 //<CurrencyHistoryApiTester uri="/currency/history" />
 //<CurrencyHistoryPresenter uri="/currency/history" />

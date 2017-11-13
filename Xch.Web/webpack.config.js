@@ -2,6 +2,7 @@
 
 module.exports = {
     entry: {
+        
         site: [
             './scripts/Main.tsx'
         ]

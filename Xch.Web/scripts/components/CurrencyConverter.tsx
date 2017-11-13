@@ -29,7 +29,7 @@ export class CurrencyConverter extends React.Component<ICurrencyConverterProps, 
     }
 
     render(): React.ReactNode {
-        return <form onSubmit={this.handleSubmit.bind(this)}>
+        return <div >
                    <label>From: &nbsp;</label>
 
                    <CurrencyPicker
@@ -44,12 +44,12 @@ export class CurrencyConverter extends React.Component<ICurrencyConverterProps, 
 
                    <label>Amount: &nbsp;</label>
                    <input value={this.state.sourceAmountString} onChange={this.handleInputChanged.bind(this)} />
-                   
-                   <button type="submit" disabled={!this.conversionEnabled}>Convert</button>
-
+            
                    {this.renderResultLabel()}
-            </form>;
+        </div>;
     }
+
+    //<button type="submit" disabled={!this.conversionEnabled}>Convert</button> onSubmit={this.handleSubmit.bind(this)}
 
     private get conversionEnabled(): boolean {
         return this.state.sourceAmount != null && !isUndefined(this.state.sourceAmount);
@@ -70,18 +70,31 @@ export class CurrencyConverter extends React.Component<ICurrencyConverterProps, 
 
     private handleSubmit(e): void {
         e.preventDefault();
+        this.trySendUpdateResultAmountRequest();
+    }
 
+    private trySendUpdateResultAmountRequest(): void {
         if (!this.state.currentSource || !this.state.currentDest || !this.conversionEnabled) return;
-        
+
         var parameters: ICurrencyConverterParameters = {
             sourceAmount: this.state.sourceAmount,
             sourceCurrencyCode: this.state.currentSource,
             destCurrencyCode: this.state.currentDest
         };
-        
+
         Ajax.get<number>(this.props.converterUri, parameters).then(result => {
-            this.setState({ resultAmount: result});
+            this.setState({ resultAmount: result });
         });
+    }
+
+    componentDidUpdate(prevProps, prevState: ICurrencyConverterState, prevContext): void {
+        if (this.state.currentSource === prevState.currentSource &&
+            this.state.currentDest === prevState.currentDest &&
+            this.state.sourceAmount === prevState.sourceAmount) {
+            return;
+        }
+
+        this.trySendUpdateResultAmountRequest();
     }
 
     private handleInputChanged(e): void {
@@ -91,14 +104,17 @@ export class CurrencyConverter extends React.Component<ICurrencyConverterProps, 
             val = null;
         }
         this.setState({ sourceAmountString: target.value, sourceAmount: val });
-        //this.forceUpdate();
     }
 
     private handleSourceChanged(c: string): void {
-        this.setState({ currentSource: c});
+        if (this.state.currentSource === c) return;
+
+        this.setState({ currentSource: c });
     }
 
     private handleDestChanged(c: string): void {
+        if (this.state.currentDest === c) return;
+        
         this.setState({ currentDest: c });
     }
 }
