@@ -29,7 +29,7 @@ namespace Xch.Tests.Controllers
 
         private static CurrencyRatesSnapshot GetTestRates()
         {
-            return new CurrencyRatesSnapshot(new DateTime(2017, 01, 01), new[]
+            return new CurrencyRatesSnapshot(new DateTime(2017, 01, 02), new[]
             {
                 new CurrencyRate("HUF", 300),
                 new CurrencyRate("EUR", 1.0),

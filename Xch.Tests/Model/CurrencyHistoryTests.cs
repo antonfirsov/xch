@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xch.Model;
 using Xunit;
 
@@ -30,6 +31,28 @@ namespace Xch.Tests.Model
                 });
             }
 
+            [Fact]
+            public void EurIsIgnored()
+            {
+                CurrencyRate[] r1 =
+                {
+                    new CurrencyRate("HUF", 1), new CurrencyRate("EUR", 2)
+                };
+
+                CurrencyRate[] r2 =
+                {
+                    new CurrencyRate("HUF", 10), new CurrencyRate("EUR", 20)
+                };
+
+                CurrencyRatesSnapshot s1 = new CurrencyRatesSnapshot(DateTime.Now, r1);
+                CurrencyRatesSnapshot s2 = new CurrencyRatesSnapshot(DateTime.Now, r2);
+
+                var history = CurrencyHistory.CreateFromSnapshots(new[] { s1, s2 });
+
+                Assert.Equal(1, history.Count);
+                Assert.Equal(1, history.Codes.Count);
+                Assert.NotNull(history["huf"]);
+            }
             
             private static CurrencyHistory CreateTestHistory()
             {

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Xch.Model;
 using Xch.Services;
 
 namespace Xch.Web.Controllers
@@ -37,6 +38,21 @@ namespace Xch.Web.Controllers
             var currentRates = await _currencyRateProvider.GetCurrentRatesAsync();
             string[] codes = currentRates.Select(r => r.Code.Value).ToArray();
             return Json(codes);
+        }
+
+        public async Task<IActionResult> History()
+        {
+            var rates = await _currencyRateProvider.GetAllRatesAsync();
+            CurrencyHistory history = CurrencyHistory.CreateFromSnapshots(rates);
+
+            var result = new
+            {
+                codes = history.Codes,
+                dates = history.Dates,
+                data = history.ToArray()
+            };
+
+            return Json(result);
         }
 
         public IActionResult Test2()

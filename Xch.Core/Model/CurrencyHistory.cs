@@ -36,7 +36,8 @@ namespace Xch.Model
             {
                 foreach (CurrencyRate rate in snapshot)
                 {
-                    //List<double> l;
+                    if (rate.Code == CurrencyCode.Eur) continue;
+                    
                     if (!data.TryGetValue(rate.Code, out List<double> l))
                     {
                         l = new List<double>();
@@ -47,7 +48,9 @@ namespace Xch.Model
             }
 
             DateTime[] dates = snapshots.Select(s => s.Date).ToArray();
-            CurrencyCode[] codes = snapshots.FirstOrDefault()?.Select(s => s.Code).ToArray() ?? new CurrencyCode[0];
+            CurrencyCode[] codes =
+                snapshots.FirstOrDefault()?.Where(s => s.Code != CurrencyCode.Eur).Select(s => s.Code).ToArray() ??
+                new CurrencyCode[0];
 
             if (data.Any(d => d.Value.Count != dates.Length))
             {
