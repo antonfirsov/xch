@@ -9,6 +9,6 @@ namespace Xch.Services
     {
         Task<CurrencyRatesSnapshot> GetCurrentRatesAsync();
 
-        Task<IEnumerable<CurrencyRatesSnapshot>> GetHistory(DateTime? minDate, DateTime? maxDate);
+        Task<IEnumerable<CurrencyRatesSnapshot>> GetAllRatesAsync();
     }
 }

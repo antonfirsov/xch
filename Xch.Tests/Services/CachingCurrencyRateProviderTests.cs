@@ -31,7 +31,7 @@ namespace Xch.Tests.Services
             var result = await provider.GetCurrentRatesAsync();
 
             // Assert:
-            Assert.Equal(_fixture.ExpectedCurrentRates.Count, result.Count);
+            Assert.Equal(_fixture.ExpectedRates1.Count, result.Count);
         }
 
         [Fact]
@@ -78,6 +78,23 @@ namespace Xch.Tests.Services
 
             Assert.Equal(CurrencyRate.Eur, snapshot[CurrencyCode.Eur]);
         }
+
+
+        [Fact]
+        public async Task GetAllRatesAsync()
+        {
+            ICurrencyRateProvider wrappedProvider = _fixture.BasicProvider;
+            CachingCurrencyRateProvider provider = new CachingCurrencyRateProvider(wrappedProvider, TimeSpan.FromHours(1));
+
+            // Act:
+            var result = await provider.GetAllRatesAsync();
+
+            Assert.Equal(2, result.Count());
+
+            Assert.Equal(_fixture.ExpectedRates0.Count, result.First().Count);
+            Assert.Equal(_fixture.ExpectedRates1.Count, result.Last().Count);
+        }
+
 
         public void Dispose()
         {

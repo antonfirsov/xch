@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xch.Model;
 
@@ -15,7 +16,7 @@ namespace Xch.Services.Implementation
         private readonly bool _autoAddEur;
 
         private DateTime _lastUpdate = DateTime.MinValue;
-        private CurrencyRatesSnapshot _currentRates = null;
+        private CurrencyRatesSnapshot[] _currentRates = null;
 
         public CachingCurrencyRateProvider(ICurrencyRateProvider wrappedProvider, TimeSpan timeoutInterval, bool autoAddEur = false)
         {
@@ -27,7 +28,7 @@ namespace Xch.Services.Implementation
         public async Task<CurrencyRatesSnapshot> GetCurrentRatesAsync()
         {
             await UpdateOnTimeout();
-            return _currentRates;
+            return _currentRates.Last();
         }
 
         private bool NeedUpdate => _currentRates == null || DateTime.Now - _lastUpdate > _timeoutInterval;
@@ -37,17 +38,22 @@ namespace Xch.Services.Implementation
             if (NeedUpdate)
             {
                 _lastUpdate = DateTime.Now;
-                _currentRates = await _wrappedProvider.GetCurrentRatesAsync();
+                var rates = await _wrappedProvider.GetAllRatesAsync();
+                _currentRates = rates.ToArray();
                 if (_autoAddEur)
                 {
-                    _currentRates = _currentRates.AddEur();
+                    for (int i = 0; i < _currentRates.Length; i++)
+                    {
+                        _currentRates[i] = _currentRates[i].AddEur();
+                    }
                 }
             }
         }
 
-        public Task<IEnumerable<CurrencyRatesSnapshot>> GetHistory(DateTime? minDate, DateTime? maxDate)
+        public async Task<IEnumerable<CurrencyRatesSnapshot>> GetAllRatesAsync()
         {
-            throw new NotImplementedException();
+            await UpdateOnTimeout();
+            return _currentRates;
         }
     }
 }

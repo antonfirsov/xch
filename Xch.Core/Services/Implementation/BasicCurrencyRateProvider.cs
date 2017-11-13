@@ -21,18 +21,20 @@ namespace Xch.Services.Implementation
         
         public async Task<CurrencyRatesSnapshot> GetCurrentRatesAsync()
         {
+            // TODO: I was not able to find a proper spec for the XML format. Do we expect an ordered input? Lets go for sure for now and sort it!
+            var rates = await GetAllRatesAsync();
+            return rates.Last();
+        }
+
+        public async Task<IEnumerable<CurrencyRatesSnapshot>> GetAllRatesAsync()
+        {
             var executor = _webRequestExecutorFactory();
             await executor.ExecuteAsync(Uri);
             var stream = executor.GetResponseStream();
             var rates = await _deserializer.DeserializeCurrencyRatesAsync(stream);
-            
-            // TODO: I was not able to find a proper spec for the XML format. Do we expect an ordered input? Lets go for sure for now and sort it!
-            return rates.OrderBy(r => r.Date).Last();
-        }
 
-        public Task<IEnumerable<CurrencyRatesSnapshot>> GetHistory(DateTime? minDate, DateTime? maxDate)
-        {
-            throw new NotImplementedException();
+            // TODO: I was not able to find a proper spec for the XML format. Do we expect an ordered input? Lets go for sure for now and sort it!
+            return rates.OrderBy(r => r.Date);
         }
     }
 }
