@@ -13,7 +13,7 @@ Built with node v8.9.1 & npm v5.5.1
 cd Xch.Web
 npm install
 npm run build
-dotnet run
+dotnet run -c Release
 ```
 #### From Visual Studio 2017
 "ASP.NET and web development" or ".NET Core cross-platform development" workload is required.
